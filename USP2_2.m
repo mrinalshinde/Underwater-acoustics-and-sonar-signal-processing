@@ -1,9 +1,9 @@
 %file saved as USP2_2.m
-frequeny = 0.1:10000; 
+frequency = 0.1:10000; 
 temperature = 15;
 salinity = 35; 
 ph = 8; 
-depth_max = 50;
+depth_max = 0.5; 
 p1 = 1; 
 p2 = 1 - (1.37 * 10^-4 * depth_max) + (6.2 * 10^-9 * depth_max^2);
 p3 = 1 - (3.83 * 10^-5 * depth_max) + (4.9 * 10^-10 * depth_max^2);
@@ -19,15 +19,15 @@ else
 a3 = (3.964 * 10^-4) - (1.146 * 10^-5)*temperature ...
     + (1.45 * 10^-7)*(temperature^2) - (6.5.*10^-10)*(temperature^3);
 end
-boric_Acid = ((a1.*p1.*f1.*frequeny.^2)./((f1.^2)+(frequeny.^2)));
-magnesium_Sulphate = ((a2.*p2.*f2.*frequeny.^2)./((f2.^2)+(frequeny.^2)));
-pure_Water = (a3.*p3.*frequeny.^2);
+boric_Acid = ((a1.*p1.*f1.*frequency.^2)./((f1.^2)+(frequency.^2)));
+magnesium_Sulphate = ((a2.*p2.*f2.*frequency.^2)./((f2.^2)+(frequency.^2)));
+pure_Water = (a3.*p3.*frequency.^2);
 all_Contributions = boric_Acid + magnesium_Sulphate + pure_Water;
 
-loglog(frequeny,boric_Acid,'--','color','r','linewidth',2), hold on; 
-loglog(frequeny,magnesium_Sulphate,'--','color','green','linewidth',2), hold on; 
-loglog(frequeny,pure_Water,'--','color','yellow','linewidth',2), hold on;
-loglog(frequeny,all_Contributions,'blue','linewidth',2); 
+loglog(frequency,boric_Acid,'--','color','r','linewidth',2), hold on; 
+loglog(frequency,magnesium_Sulphate,'--','color','green','linewidth',2), hold on; 
+loglog(frequency,pure_Water,'--','color','yellow','linewidth',2), hold on;
+loglog(frequency,all_Contributions,'blue','linewidth',2); 
 xlabel('Frequency (KHz)'); ylabel('Attenuation coefficient (dB/Km)');
 legend('Boric Acid','Magnesium Sulphate','Pure Water','All Contributions'); 
 grid on;
