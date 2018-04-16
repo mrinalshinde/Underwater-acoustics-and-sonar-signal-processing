@@ -1,18 +1,20 @@
+%file saved as USP2_2
 frequency = 0.1:10000;
-depth = 50;
+depth = 10;
+depth_max = 1000;
 temperature = 15; 
-salinity = 25; 
+salinity = 35; 
 A = 2.34*10^-6;
 B = 3.38*10^-6;
-relaxation_frequency = 21.9 * 10^(6-1520/(temperature+273));
+relaxation_Frequency = 21.9 * 10^(6-1520/(temperature+273));
 pressure = 1.01 * (1 + depth * 0.1);
 P1 = 1; 
-P2 = 1 - (1.37*10^-4)*depth + (6.2 * 10^-9 * depth^2);
-P3 = 1 - (3.83*10^-5)*depth + (4.9 * 10^-10 * depth^2);
-c = 1412 + 3.21*temperature + 1.19*salinity + 0.0167*depth;
+P2 = 1 - (1.37*10^-4)*depth_max + (6.2 * 10^-9 * depth_max^2);
+P3 = 1 - (3.83*10^-5)*depth_max + (4.9 * 10^-10 * depth_max^2);
+c = 1412 + 3.21*temperature + 1.19*salinity + 0.0167*depth_max;
 f1 = 2.8 * sqrt((salinity/35)) * 10^(4 - (1245/(temperature+273)));
 f2 = (8.17 * 10^(8-1990/(temperature+273))) / (1 + 0.0018*(salinity-35));
-ph = 8;
+ph = 8.1;
 A1 = ((8.686/c) * 10^(0.78*ph - 5));
 A2 = 21.44*(salinity/c)*(1 + 0.025*temperature);
 if temperature<=20
@@ -26,9 +28,9 @@ end
 thorp = ((0.11.*frequency.^2)./(1+frequency.^2)) ...
     + ((44.*frequency.^2)./(4100+frequency.^2));
 
-shulkin_marsh = 8.686*10^3*(((salinity.*A.*relaxation_frequency.*frequency.^2) ...
-    ./(relaxation_frequency.^2 + frequency.^2)) ...
-    + (B.*frequency.^2)./relaxation_frequency) ...
+shulkin_Marsh = 8.686*10^3*(((salinity.*A.*relaxation_Frequency.*frequency.^2) ...
+    ./(relaxation_Frequency.^2 + frequency.^2)) ...
+    + (B.*frequency.^2)./relaxation_Frequency) ...
     .*(1 - 6.54*10.^-4.*pressure);
 
 francois_garrison = ((A1.*P1.*f1.*frequency.^2)./(f1.^2 + frequency.^2))...
@@ -36,8 +38,8 @@ francois_garrison = ((A1.*P1.*f1.*frequency.^2)./(f1.^2 + frequency.^2))...
     + (A3.*P3.*frequency.^2);
 
 figure(); 
-loglog(frequency,Thorp,'b','linewidth',1.5), hold on; 
-loglog(frequency,shulkin_marsh,'color',[0 0.5 0],'linewidth',1.5), hold on; 
+loglog(frequency,thorp,'b','linewidth',1.5), hold on; 
+loglog(frequency,shulkin_Marsh,'color',[0 0.5 0],'linewidth',1.5), hold on; 
 loglog(frequency,francois_garrison,'r','linewidth',1.5);
 grid on;
 xlabel('frequency (KHz)'); 
