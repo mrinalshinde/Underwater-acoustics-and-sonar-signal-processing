@@ -1,28 +1,24 @@
-frequency = 50;
-grazingAngle = 0:0.01:pi/2;
-n = length(grazingAngle);
-theta = linspace(0,90,n);
-for i = 0:1:3
-  f = 50*(2^i);
-  subplot(2,2,i+1);
-for j=0:3
-vW = 5*(2^j);
-beta = 4*((vW+2)/(vW+1)) + (2.5*((f+0.1)^(-1/3))-4) ...
-    .* cos(grazingAngle) .^ (1/8);
-sS = 10*log10(((tan(grazingAngle)).^beta) ...
-    .*((1+vW)^2)*((f+0.1)^(vW/150))*(10^(-5.05)));
-plot(theta,sS,'LineWidth',2)
-title(['Frequency = ',num2str(f),' kHz'])
-xlabel('Grazing angle [deg]'),
-ylabel('Surface reverberation [dB/m^2]') 
+frequency = [50 100 200 400];
+vW = [5 10 20 40];
+grazingAngle = 0:90;
+for i = 1:4
+    subplot(2,2,i)
+    sS = [];
+    for j = 1:4
+    sS = [sS;surfaceBackScattering(frequency(i),vW(j),grazingAngle)]; % calling the function
+    end
+plot(grazingAngle,sS,'LineWidth',2)
+axis([0 90 -60 0])
+grid on
+xlabel('Grazing Angle [deg]')
+ylabel('Surface Reverberation [dB/m^2]') 
 ax = gca;
-ax.FontSize = 12;
-ax.YLim = [-70 10];
-hold on
+ax.FontSize = 16;
+title(sprintf('Frequency = %d kHz' ,frequency(i)))
 end
-end
-hL = legend('WS = 5kn','WS = 10kn','WS = 20kn','WS = 40kn');
-newPosition = [0.85 0.85 0.2 0.2];
+hL = legend('WS = 5 kn','WS = 10 kn','WS = 20 kn','WS = 40 kn');
+newPosition = [0.85 0.85 0.15 0.18];
 newUnits = 'normalized';
 set(hL,'Position', newPosition,'Units', newUnits);
-hL.FontSize = 14;
+hL.FontSize = 15;
+
