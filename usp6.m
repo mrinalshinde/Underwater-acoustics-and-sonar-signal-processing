@@ -11,7 +11,7 @@ for i = 1:1:5
     [z,r] = ndgrid(z_R,r_R);
     P = zeros(length(z_R),length(r_R),2);
     p = zeros(length(z_R),length(r_R),2);
-    for m = 0:1:5
+    for m = 0:1:10 % more than 5 iterations
         C1 = 2.*D;
         C2 = z_S+z;
         C3 = z_S-z;
@@ -49,6 +49,5 @@ for i = 1:1:5
            end
        end
    end
-      
 end
 
