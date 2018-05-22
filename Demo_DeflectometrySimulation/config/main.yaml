@@ -1,0 +1,22 @@
+camera:
+ type: Camera
+ parfile1: cameraParameters.yaml
+ VRMode: ideal
+object: 
+ type: Sphere
+ parfile1: sphereParameters.yaml
+ parfile2: sphereOrientation.yaml
+display:
+ type: Display
+ parfile1: parameter_MD211G5.yaml
+ parfile2: displayOrientation.yaml
+ plotPrecision: 1
+ plotImage: 1
+ displayMode: ideal
+imageSettings:
+ imgType: FringeImage
+ operation: createNormalize
+ numberOfPhaseShifts: 4.0
+ wavelengths: 
+  - [2631.0, 151.0, 10.0]
+  - [2093.0, 151.0, 10.0]

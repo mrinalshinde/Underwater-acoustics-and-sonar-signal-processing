@@ -1,0 +1,11 @@
+# Pike F-210
+boxWidthX: 44.0
+boxWidthY: 44.0
+boxWidthZ: 96.8
+
+#pupilRadius: 2.0115
+focalLength: 400.0
+# k = 11.3 -> keff -> 12.28875
+# halfapertureAngle = atan( pupilRadius / focalLength)
+halfApertureAngle: 0.003560151777907
+focalLength: 400.0
